@@ -15,7 +15,7 @@ def timer(studyTime):
 
 def displayTime(time_remaining):
     if time_remaining[1] < 10:
-                print(f"Time remaining: 0{time_remaining[0]}:0{time_remaining[1]}", end="\r")
+        print(f"Time remaining: 0{time_remaining[0]}:0{time_remaining[1]}", end="\r")
     else:
         print(f"Time remaining: {time_remaining[0]}:{time_remaining[1]}", end="\r")
 
