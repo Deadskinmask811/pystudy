@@ -1,6 +1,8 @@
 import time
 import math
 import subprocess
+import random
+import webbrowser
 
 def timer(studyTime):
     time_remaining = studyTime
@@ -39,6 +41,8 @@ def getUserInput():
             return [60, 0]
         case "c":
             return customTimeInput() 
+        case "m":
+            return getMusic() 
         case _:
             raise Exception
 
@@ -51,11 +55,25 @@ def displayOptions():
     print("(5) 30 Minutes")
     print("(6) 1 Hour")
     print("(c) Custom Time")
+    print("(m) Get random song copied to clipboard for study vibes")
     print("##################")
     
 def customTimeInput():
     customTime = int(input("Input number of minutes to start timer with\n"))
     return [customTime,0]
+
+def getMusic():
+    try:
+        print("trying to open file...")
+        with open("playlist.txt", "r") as file_object:
+            content = file_object.read()
+            lines = content.split()
+            rand_num = random.randint(0, len(lines) - 1) 
+            url = lines[rand_num]
+            webbrowser.open(url, new=2, autoraise=True)
+            return url 
+    except FileNotFoundError:
+        print("No such file exists in script directory")
 
 def main():
     studyTime = None
