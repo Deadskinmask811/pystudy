@@ -15,15 +15,15 @@ def timer(studyTime):
 
 def displayTime(time_remaining):
     if time_remaining[1] < 10:
-        print(f"Time remaining: 0{time_remaining[0]}:0{time_remaining[1]}", end="\r")
+        print(f"\rTime remaining: 0{time_remaining[0]}:0{time_remaining[1]}", end="", flush=True)
     else:
-        print(f"Time remaining: {time_remaining[0]}:{time_remaining[1]}", end="\r")
+        print(f"\rTime remaining: {time_remaining[0]}:{time_remaining[1]}", end="", flush=True)
 
 def playAlarm():
     subprocess.run("/home/coty/Projects/pythontimer/playsound.sh")
 
 def getUserInput():
-    user_option = input("(1) 1 Minute, (2) 5 Minutes, (3) 10 Minutes, (c) Custom Time...\n")
+    user_option = input()
     match user_option:
         case "1":
             return [1, 0] 
@@ -31,25 +31,41 @@ def getUserInput():
             return [5, 0]
         case "3":
             return [10, 0]
+        case "4":
+            return [15, 0]
+        case "5":
+            return [30, 0]
+        case "6":
+            return [60, 0]
         case "c":
             return customTimeInput() 
         case _:
             raise Exception
 
+def displayOptions():
+    print("##################")
+    print("(1) 1 Minute")
+    print("(2) 5 Minute")
+    print("(3) 10 Minutes")
+    print("(4) 15 Minutes")
+    print("(5) 30 Minutes")
+    print("(6) 1 Hour")
+    print("(c) Custom Time")
+    print("##################")
     
 def customTimeInput():
-    customTime = int(input("Input num of minutes to start timer with\n"))
+    customTime = int(input("Input number of minutes to start timer with\n"))
     return [customTime,0]
 
 def main():
     studyTime = None
     while(type(studyTime) != list):
         try:
-            print("Select time option")
+            displayOptions()
             studyTime = getUserInput()
         except Exception as e:
             print(f"\n***** Invalid Input *****\n")
-        
+    
     timer(studyTime)
     print("time over")
     playAlarm()
