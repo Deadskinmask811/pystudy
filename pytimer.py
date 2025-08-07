@@ -64,7 +64,6 @@ def customTimeInput():
 
 def getMusic():
     try:
-        print("trying to open file...")
         with open("playlist.txt", "r") as file_object:
             content = file_object.read()
             lines = content.split()
