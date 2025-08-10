@@ -7,22 +7,25 @@ import webbrowser
 def timer(studyTime):
     time_remaining = studyTime
     while time_remaining[0] >= 0 and time_remaining[1] >= 0:
+        if time_remaining[0] == 0 and time_remaining[1] == 0:
+            print("\nTime over...rest easy hero...")
+            break
         if time_remaining[1] == 0:
             if time_remaining[0] >= 1:
                 time_remaining[0] -= 1
                 time_remaining[1] = 60
         time_remaining[1] -= 1
         displayTime(time_remaining)
-        time.sleep(1.0)
+        time.sleep(0.01)
 
 def displayTime(time_remaining):
     if time_remaining[1] < 10:
-        print(f"\rTime remaining: 0{time_remaining[0]}:0{time_remaining[1]}", end="", flush=True)
+        print(f"\rTime remaining: {time_remaining[0]}:0{time_remaining[1]}", end="", flush=True)
     else:
         print(f"\rTime remaining: {time_remaining[0]}:{time_remaining[1]}", end="", flush=True)
 
 def playAlarm():
-    subprocess.run("/home/coty/Projects/pythontimer/playsound.sh")
+    subprocess.run("/home/coty/Projects/pystudy/playsound.sh")
 
 def getUserInput():
     user_option = input()
@@ -57,6 +60,7 @@ def displayOptions():
     print("(c) Custom Time")
     print("(m) Get random song copied to clipboard for study vibes")
     print("##################")
+    print("ctrl-c to quit at any time.")
     
 def customTimeInput():
     customTime = int(input("Input number of minutes to start timer with\n"))
@@ -70,22 +74,27 @@ def getMusic():
             rand_num = random.randint(0, len(lines) - 1) 
             url = lines[rand_num]
             webbrowser.open(url, new=2, autoraise=True)
+            print(f"Now playing...{url}")
             return url 
     except FileNotFoundError:
         print("No such file exists in script directory")
 
 def main():
+    userInput = None
     studyTime = None
-    while(type(studyTime) != list):
+    previousTime = None
+    while (type(userInput) != list):
         try:
             displayOptions()
-            studyTime = getUserInput()
+            userInput = getUserInput()
         except Exception as e:
             print(f"\n***** Invalid Input *****\n")
-    
-    timer(studyTime)
-    print("time over")
-    playAlarm()
+
+        studyTime = userInput
+        timer(studyTime)
+        previousTime = studyTime
+        playAlarm()
+        userInput = None
      
 if __name__ == "__main__":
     main()

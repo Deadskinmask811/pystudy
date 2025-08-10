@@ -1,3 +1,3 @@
 #!/bin/bash
 
-paplay /home/coty/Projects/pythontimer/pyalarm.wav
+paplay /home/coty/Projects/pystudy/levelup.mp3
