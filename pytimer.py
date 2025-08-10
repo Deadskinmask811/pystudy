@@ -19,7 +19,7 @@ def timer(studyTime):
         time.sleep(0.01)
 
 def displayTime(time_remaining):
-    if time_remaining[1] < 10:
+    if time_remaining[1] > 10 and time_remaining[1] < 10:
         print(f"\rTime remaining: {time_remaining[0]}:0{time_remaining[1]}", end="", flush=True)
     else:
         print(f"\rTime remaining: {time_remaining[0]}:{time_remaining[1]}", end="", flush=True)
