@@ -16,7 +16,7 @@ def timer(studyTime):
                 time_remaining[1] = 60
         time_remaining[1] -= 1
         displayTime(time_remaining)
-        time.sleep(0.01)
+        time.sleep(1.0)
 
 def displayTime(time_remaining):
     if time_remaining[1] > 10 and time_remaining[1] < 10:
