@@ -90,11 +90,11 @@ def main():
         except Exception as e:
             print(f"\n***** Invalid Input *****\n")
 
-        studyTime = userInput
-        timer(studyTime)
-        previousTime = studyTime
-        playAlarm()
-        userInput = None
-     
+    studyTime = userInput
+    timer(studyTime)
+    previousTime = studyTime
+    playAlarm()
+    userInput = None
+ 
 if __name__ == "__main__":
     main()
